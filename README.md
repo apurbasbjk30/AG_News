@@ -247,5 +247,3 @@ Possible future improvements include:
 Apurba Das
 B.Tech Computer Science and Engineering
 Central University of Jharkhand
-
-```
