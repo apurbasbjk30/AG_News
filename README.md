@@ -1,6 +1,3 @@
-Here is a clean professional README you can directly copy into `README.md`.
-
-````markdown
 # AG News Text Classification using DistilBERT
 
 ## Project Overview
@@ -251,5 +248,4 @@ Apurba Das
 B.Tech Computer Science and Engineering
 Central University of Jharkhand
 
-```
 ```
