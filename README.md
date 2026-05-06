@@ -1,241 +1,280 @@
-# AG News Text Classification using DistilBERT
+AG News Text Classification using DistilBERT
+Project Overview
+This project implements a complete Natural Language Processing (NLP) pipeline for news text classification using the AG News dataset. The model was developed using PyTorch and Hugging Face Transformers.
+The objective of this project was to understand and implement the complete transformer-based NLP workflow, including:
 
-## 1. Introduction
 
-The objective of this project was to build a complete Natural Language Processing (NLP) pipeline for text classification using the AG News dataset. The project focused on understanding the end-to-end workflow of transformer-based NLP systems using PyTorch and Hugging Face Transformers.
+Data preprocessing
 
-The AG News dataset contains news articles categorized into four different classes:
 
-1. World
-2. Sports
-3. Business
-4. Sci/Tech
+Tokenization
 
-The main goal of this assignment was not only to train a model successfully, but also to understand preprocessing, tokenization, model fine-tuning, evaluation metrics, and training behavior.
 
----
+Transformer fine-tuning
 
-# 2. Technologies Used
 
-The following tools and libraries were used during the project:
+Model training
 
-* Python
-* PyTorch
-* Hugging Face Transformers
-* Hugging Face Datasets
-* Scikit-learn
-* Pandas
-* TensorBoard
-* Git and GitHub
 
----
+Evaluation metrics
 
-# 3. Dataset Description
 
-The AG News dataset is a benchmark dataset for topic classification.
+Experiment tracking concepts
 
-Dataset characteristics:
 
-* 4 news categories
-* Title and description for each article
-* CSV format
-* Balanced class distribution
+Version control using Git and GitHub
 
-Each dataset sample contains:
 
-* Label
-* News title
-* News description
 
-The title and description columns were combined into a single text field before preprocessing.
+Dataset
+Dataset Used:
+AG News Classification Dataset
+The dataset contains four news categories:
 
----
 
-# 4. Data Preprocessing
+World
 
-The preprocessing stage was performed carefully to make the raw dataset suitable for transformer-based training.
 
-The original AG News dataset contained three columns:
+Sports
 
-* Class Index
-* Title
-* Description
 
-During preprocessing, the following steps were performed:
+Business
 
-1. The dataset was loaded using Pandas.
-2. The title and description columns were merged into a single text column.
-3. Unnecessary columns were removed.
-4. The dataset was converted into Hugging Face Dataset format.
 
-The title and description columns were combined because both contained important contextual information about the news article. Combining them helped the model capture more semantic meaning from the text.
+Sci/Tech
 
-The original separate columns were removed after merging to avoid redundancy and reduce unnecessary input complexity.
 
-Basic cleaning was also performed on the dataset. Escape characters and formatting inconsistencies from the CSV file were handled automatically during loading and preprocessing. The final dataset contained clean text samples along with their corresponding labels.
+Each sample contains:
 
-After preprocessing, the dataset was tokenized using the DistilBERT tokenizer.
 
----
+Title
 
-# 5. Tokenization
 
-Tokenization was performed using the pretrained DistilBERT tokenizer from Hugging Face.
+Description
 
-The tokenizer converted raw text into numerical representations that could be processed by the transformer model.
 
-During tokenization, the following outputs were generated:
+Label
 
-* input_ids
-* attention_mask
 
-The input_ids represent the numerical token IDs corresponding to words or subwords from the DistilBERT vocabulary. Since transformer models cannot directly process raw text, the tokenizer converts each token into a numerical representation which is later passed through embedding layers inside the model.
+Dataset Source:
+https://www.kaggle.com/datasets/amananandrai/ag-news-classification-dataset
 
-The attention_mask helps the model identify which tokens are actual text and which tokens are padding values. Tokens with value 1 represent valid input tokens, while tokens with value 0 represent padded positions added to maintain fixed sequence length. This allows the transformer to ignore unnecessary padded regions during attention computation.
+Technologies Used
 
-Padding and truncation were applied to ensure consistent input length across all samples.
 
-Maximum sequence length used:
+Python
 
-* 128 tokens
 
-This tokenized representation was later used as the direct input to the DistilBERT classification model during training.
+PyTorch
 
----
 
-# 6. Model Selection
+Hugging Face Transformers
 
-The model used for this project was DistilBERT.
 
+Hugging Face Datasets
+
+
+Scikit-learn
+
+
+Pandas
+
+
+Matplotlib
+
+
+TensorBoard
+
+
+Git and GitHub
+
+
+
+Project Structure
+AG_News/│├── data/│   ├── raw/│   └── processed/│├── models/│├── outputs/│├── src/│   ├── 01_preprocessing.ipynb│   └── 02_training.ipynb│├── README.md├── requirements.txt├── .gitignore└── report.pdf
+
+Data Preprocessing
+The preprocessing pipeline included:
+
+
+Loading CSV data using Pandas
+
+
+Combining title and description columns
+
+
+Removing unnecessary columns
+
+
+Cleaning formatting inconsistencies
+
+
+Converting the dataset into Hugging Face Dataset format
+
+
+The title and description columns were merged because both contained important contextual information about the news articles. Combining them helped the transformer model capture richer semantic meaning from the text.
+
+Tokenization
+Tokenization was performed using the pretrained DistilBERT tokenizer.
+The tokenizer generated:
+
+
+input_ids
+
+
+attention_mask
+
+
+input_ids
+These are numerical token representations of text generated from the DistilBERT vocabulary. Transformer models cannot process raw text directly, so the tokenizer converts words and subwords into numerical IDs.
+attention_mask
+This identifies valid tokens and padded tokens. Tokens with value 1 represent actual text, while 0 represents padded positions. This helps the transformer ignore unnecessary padded regions during attention computation.
+Padding and truncation were applied with a maximum sequence length of 128 tokens.
+
+Model Used
 Model:
 
-* distilbert-base-uncased
 
-DistilBERT is a lightweight and faster version of BERT. It provides high accuracy while requiring less computational resources.
+distilbert-base-uncased
 
-Reasons for selecting DistilBERT:
 
-* Faster training
-* Lower memory consumption
-* Suitable for CPU-based training
-* Good performance on text classification tasks
+DistilBERT was selected because it:
 
-The classification layer was fine-tuned on the AG News dataset.
 
----
+trains faster than BERT
 
-# 7. Training Pipeline
 
-The training pipeline was implemented using Hugging Face Trainer API.
+requires lower computational resources
 
-Training steps:
 
-1. Tokenized dataset preparation
-2. Dataset splitting into training and evaluation sets
-3. Model initialization
-4. Training configuration using TrainingArguments
-5. Fine-tuning using Trainer
-6. Evaluation using classification metrics
+performs well on NLP classification tasks
 
-Training was performed for:
 
-* 1 epoch
+is suitable for CPU-based experimentation
+
+
+The pretrained model was fine-tuned for multi-class news classification.
+
+Training Pipeline
+The training pipeline was implemented using the Hugging Face Trainer API.
+Training workflow:
+
+
+Tokenized dataset preparation
+
+
+Train-test split
+
+
+Model initialization
+
+
+Training configuration using TrainingArguments
+
+
+Fine-tuning using Trainer
+
+
+Model evaluation
+
+
+Training Configuration:
+
+
+Epochs: 1
+
+
+Batch Size: 8
+
+
+Framework: PyTorch + Hugging Face Trainer
+
 
 A smaller subset of the dataset was used during experimentation to reduce CPU training time.
 
----
+Evaluation Results
+MetricValueAccuracy0.896F1 Score0.895Precision0.897Recall0.896Training Loss0.377Validation Loss0.379
 
-# 8. Evaluation Metrics
+Result Analysis
+The DistilBERT model achieved approximately 90% classification accuracy on the AG News dataset subset.
+The training and validation losses decreased consistently, indicating stable learning behavior and good generalization performance.
+The similarity between training loss and validation loss suggests that the model did not significantly overfit during training.
+Balanced precision, recall, and F1-score values indicate stable classification performance across all categories.
+The project also demonstrated the effectiveness of transfer learning in NLP tasks, where pretrained transformer models can achieve strong performance even with relatively smaller datasets and limited training epochs.
 
-The following evaluation metrics were used:
+Visualizations
+The project includes:
 
-* Accuracy
-* Precision
-* Recall
-* F1-score
-* Training loss
-* Validation loss
 
-Final model performance:
+Loss curve visualization
 
-| Metric          | Value |
-| --------------- | ----- |
-| Accuracy        | 0.896 |
-| F1 Score        | 0.895 |
-| Precision       | 0.897 |
-| Recall          | 0.896 |
-| Training Loss   | 0.377 |
-| Validation Loss | 0.379 |
 
----
+Evaluation metric plots
 
-# 9. Result Analysis
 
-The model achieved approximately 90% classification accuracy after fine-tuning DistilBERT on the AG News dataset subset.
+Confusion matrix
 
-The complete pipeline was implemented and tested successfully, starting from raw CSV data loading to final model evaluation. Through this implementation, the full workflow of a transformer-based NLP classification system was understood practically.
 
-The training loss and validation loss decreased consistently during training, indicating that the model was learning meaningful semantic patterns from the news articles.
+Class distribution visualization
 
-The similarity between training loss and validation loss suggests that the model generalized well and did not significantly overfit on the training subset.
 
-The balanced precision, recall, and F1-score values indicate stable performance across all four news categories.
+These visualizations were used to better understand model behavior and training performance.
 
-The experiment also demonstrated the effectiveness of transfer learning in NLP. Even with a relatively small dataset subset and only one training epoch, the pretrained DistilBERT model achieved strong classification performance because the model already contained pretrained language representations learned from large-scale text corpora.
+Challenges Faced
+Some implementation challenges encountered during the project included:
 
-The project also provided practical understanding of:
 
-* transformer tokenization
-* attention masks
-* dataset formatting
-* fine-tuning workflow
-* training behavior
-* evaluation metrics
-* experiment tracking
-* version control using Git and GitHub
+Dependency and library version conflicts
 
----
 
-# 10. Challenges Faced
+Hugging Face Trainer compatibility issues
 
-Several practical issues were encountered during implementation:
 
-* Dependency and library version conflicts
-* Hugging Face Trainer compatibility issues
-* Dataset formatting problems
-* CPU-based slow training
-* Tokenization and dataset conversion errors
+Dataset formatting problems
 
-These issues were resolved through debugging, proper dataset formatting, and environment setup corrections.
 
----
+CPU-based slow training
 
-# 11. Conclusion
 
-This project successfully implemented a complete transformer-based NLP text classification pipeline using PyTorch and Hugging Face Transformers.
+Tokenization and dataset conversion errors
 
-The project helped in understanding:
 
-* NLP preprocessing
-* Tokenization
-* Transformer fine-tuning
-* Dataset handling
-* Training and evaluation workflows
-* Experiment tracking concepts
-* GitHub-based version control
+These issues were resolved through debugging and proper environment configuration.
 
-The final DistilBERT classifier achieved strong performance on the AG News dataset and demonstrated the effectiveness of pretrained transformer models for text classification tasks.
+How to Run
+1. Install Dependencies
+pip install -r requirements.txt
+2. Run Preprocessing Notebook
+src/01_preprocessing.ipynb
+3. Run Training Notebook
+src/02_training.ipynb
 
----
-
-# 12. Future Improvements
-
+Future Improvements
 Possible future improvements include:
 
-* Training on the full dataset
-* Using GPU acceleration
-* Hyperparameter tuning
-* Comparing DistilBERT with BERT
-* Implementing learning rate scheduling
-* Adding confusion matrix visualization
-* Using Weights & Biases for advanced experiment tracking
+
+Training on the full dataset
+
+
+GPU acceleration
+
+
+Hyperparameter tuning
+
+
+Comparing DistilBERT with BERT
+
+
+Learning rate scheduling
+
+
+Advanced experiment tracking using Weights & Biases
+
+
+Improved visualization and error analysis
+
+
+
+Submitted By:
+Apurba Das
+Central University of Jharkhand
