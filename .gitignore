@@ -1,0 +1,24 @@
+# Jupyter
+.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Data
+data/raw/
+data/processed/tokenized_dataset/
+
+# Model outputs
+outputs/
+models/
+
+# Hugging Face cache
+.cache/
+
+# TensorBoard
+runs/
+
+# OS files
+.DS_Store
+Thumbs.db
